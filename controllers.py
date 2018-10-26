@@ -1,29 +1,76 @@
 import psycopg2
 from flask_restful import Resource
+from flask import request
+import sys
+import json
+
+class DatabasesData(Resource):
+  def get(self, dbname):
+    con = None
+    response = {}
+    try:
+      fields = ''
+      with open('data.json') as f:
+        data = json.load(f)
+        for field in data["fields"]: fields += ", %s" % field["column_name"]
+        fields = fields[1:]
+      con = psycopg2.connect(host='localhost', port='54321', database=dbname, user='ping_management_user', password='ping_management_password') 
+      cur = con.cursor()
+      query_string = "select %s from %s" % (fields, dbname)
+      cur.execute(query_string)          
+      ver = cur.fetchall()
+      data = []
+      coloums = fields.split(",")
+      for item in ver:
+        for i, col in enumerate(coloums):
+          temp = {}
+          temp[col] = str(item[i])
+          data.append(temp)
+
+      response["data"] = data
+      response["status"] = 200
+    except psycopg2.DatabaseError as e:
+      response["error"] = str(e)
+      response["status"] = 500
+    finally:
+        if con:
+            con.close()
+    return response, response["status"]
+
+  def post(self, dbname):
+    response = {}
+    if request.is_json:
+      content = request.get_json()
+      response["message"] = content
+      response["status"] = 200
+    else:
+      response["error"] = "Only JSON is supported"
+      response["status"] = 400
+    
+    return response, response["status"]
 
 class Databases(Resource):
-    def get(self):
-        con = None
-        response = {}
-        try:
-            con = psycopg2.connect(host='localhost', port='54321', database='postgres', user='ping_management_user', password='ping_management_password') 
-            cur = con.cursor()
-            cur.execute('select datname from pg_database where datistemplate = false')          
-            ver = cur.fetchall()
-            databases = []
+  def get(self):
+      con = None
+      response = {}
+      try:
+          con = psycopg2.connect(host='localhost', port='54321', database='postgres', user='ping_management_user', password='ping_management_password') 
+          cur = con.cursor()
+          cur.execute('select datname from pg_database where datistemplate = false')          
+          ver = cur.fetchall()
+          databases = []
 
-            for item in ver:
-                databases.append(item[0])
-
-            response["databases"] = databases
-            response["status"] = 200
-        except psycopg2.DatabaseError as e:
-          response["error"] = str(e)
-          response["status"] = 500
-        finally:
-            if con:
-                con.close()
-        return response, response["status"]
+          for item in ver:
+              databases.append(item[0])
+          response["databases"] = databases
+          response["status"] = 200
+      except psycopg2.DatabaseError as e:
+        response["error"] = str(e)
+        response["status"] = 500
+      finally:
+          if con:
+              con.close()
+      return response, response["status"]
 
 class DatabasesDetails(Resource):
     def get(self, dbname):
