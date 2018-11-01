@@ -2,16 +2,15 @@ import psycopg2
 import json
 from flask import Flask
 from flask_restful import Resource, Api
-from controllers import AppInfo, Databases, DatabasesDetails, DatabasesData
+from controllers import AppInfo, Databases, DatabasesDetails, TableData
 from utils import DbUtils
 
 app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(AppInfo, '/')
-api.add_resource(Databases, '/databases')
-api.add_resource(DatabasesDetails, '/database/<dbname>')
-api.add_resource(DatabasesData, '/database/<dbname>/data/<table>')
+api.add_resource(DatabasesDetails, '/database')
+api.add_resource(TableData, '/database/<table>/data')
 
 if __name__ == '__main__':
     con = None
@@ -36,7 +35,7 @@ if __name__ == '__main__':
                 fields.append(temp)
 
             tables_info[table_name] = fields
-            
+
         response["database_name"] = db_name
         response["table_names"] = tables
         response['tables_info'] = tables_info

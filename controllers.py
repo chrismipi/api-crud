@@ -4,32 +4,37 @@ from flask import request
 import sys
 import json
 
-class DatabasesData(Resource):
-  def get(self, dbname, table):
+class TableData(Resource):
+  def get(self, table):
     con = None
     response = {}
+    dbname = 'test_db'
     try:
       fields = ''
       with open('data.json') as f:
         data = json.load(f)
-        for field in data["fields"]: fields += ", %s" % field["column_name"]
-        fields = fields[1:]
-      con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user', password='test_password') 
-      cur = con.cursor()
-      query_string = "select %s from %s" % (fields, table)
-      cur.execute(query_string)          
-      ver = cur.fetchall()
-      data = []
-      coloums = fields.split(",")
-      for item in ver:
-        row = {}
-        for i, col in enumerate(coloums):
-          col = col.strip(' ')
-          row[col] = str(item[i])
-        data.append(row)
 
-      response["data"] = data
-      response["status"] = 200
+        if data["table_names"].__contains__(table):
+          for field in data["tables_info"][table]: fields += ", %s" % field["column_name"]
+          fields = fields[1:]
+          con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user', password='test_password') 
+          cur = con.cursor()
+          query_string = "select %s from %s" % (fields, table)
+          cur.execute(query_string)          
+          ver = cur.fetchall()
+          data = []
+          coloums = fields.split(",")
+          for item in ver:
+            row = {}
+            for i, col in enumerate(coloums):
+              col = col.strip(' ')
+              row[col] = str(item[i])
+            data.append(row)
+          response["data"] = data
+          response["status"] = 200
+        else:
+          response["error"] = "table name '%s' not found" % table
+          response["status"] = 404
     except psycopg2.DatabaseError as e:
       response["error"] = str(e)
       response["status"] = 500
@@ -55,7 +60,7 @@ class Databases(Resource):
       con = None
       response = {}
       try:
-          con = psycopg2.connect(host='localhost', port='5432', database='postgres', user='test_user', password='test_password')
+          con = psycopg2.connect(host='localhost', port='5432', database='test_db', user='test_user', password='test_password')
           cur = con.cursor()
           cur.execute('select datname from pg_database where datistemplate = false')          
           ver = cur.fetchall()
@@ -74,27 +79,16 @@ class Databases(Resource):
       return response, response["status"]
 
 class DatabasesDetails(Resource):
-    def get(self, dbname):
+    def get(self):
       con = None
       response = {}
       try:
-        con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user', password='test_password')
-        cur = con.cursor()
-        cur.execute("select column_name, column_default, data_type, character_maximum_length FROM information_schema.columns WHERE table_schema=%s and table_name=%s", ('public', dbname,))          
-        ver = cur.fetchall()
-        fields = []
-        for i in ver:
-            temp = {}
-            temp["column_name"] = i[0]
-            temp["column_default"] = i[1]
-            temp["data_type"] = i[2]
-            temp["character_maximum_length"] = i[3]
-            fields.append(temp)
-
-        response["database_name"] = dbname
-        response["fields"] = fields
-        response["status"]= 200
-      except psycopg2.DatabaseError as e:
+        with open('data.json') as f:
+          data = json.load(f)
+          response["database_name"] = data["database_name"]
+          response["tables"] = data["table_names"]
+          response["status"]= 200
+      except IOError as e:
           response["error"] = str(e)
           response["status"] = 400
       finally:
