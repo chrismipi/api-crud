@@ -3,6 +3,7 @@ from flask_restful import Resource
 from flask import request
 import sys
 import json
+from utils import Utils as helpers
 
 class TableData(Resource):
   def get(self, table):
@@ -43,12 +44,37 @@ class TableData(Resource):
             con.close()
     return response, response["status"]
 
-  def post(self, dbname):
+  def post(self, table):
+    dbname = 'test_db'
     response = {}
     if request.is_json:
-      content = request.get_json()
-      response["message"] = content
-      response["status"] = 200
+      with open('data.json') as f:
+        data = json.load(f)
+        if data["table_names"].__contains__(table):
+          fields = ''
+          for field in data["tables_info"][table]:
+            if field["column_name"] != 'id': fields += ", %s" % field["column_name"]
+          fields = fields[1:].strip()
+
+          content = request.get_json()
+          values = helpers.getValuesFromJson(fields, content)
+          query_string = "insert into %s (%s) values %s" % (table, fields, tuple(values))
+          con = None
+          try:
+            con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user', password='test_password') 
+            cur = con.cursor()
+            print("QUERY %s" % query_string)
+            cur.execute(query_string)        
+            con.commit()  
+
+            response["message"] = "Good"
+            response["status"] = 200
+          except psycopg2.DatabaseError as e:
+            response["error"] = str(e)
+            response["status"] = 500
+          finally:
+              if con:
+                  con.close()
     else:
       response["error"] = "Only JSON is supported"
       response["status"] = 400

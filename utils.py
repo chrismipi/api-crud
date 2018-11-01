@@ -7,3 +7,16 @@ class DbUtils(object):
     for tname in ver:
       tables_list.append(tname[0])
     return tables_list
+
+class Utils(object):
+  @staticmethod
+  def getValuesFromJson(fieds_str, json):
+    fields = fieds_str.split(",")
+    values = []
+    for field in fields:
+      field = field.strip()
+      value = json[field]
+      if value == '':
+        value = None
+      values.append(value)
+    return values
