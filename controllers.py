@@ -5,7 +5,7 @@ import sys
 import json
 
 class DatabasesData(Resource):
-  def get(self, dbname):
+  def get(self, dbname, table):
     con = None
     response = {}
     try:
@@ -14,18 +14,19 @@ class DatabasesData(Resource):
         data = json.load(f)
         for field in data["fields"]: fields += ", %s" % field["column_name"]
         fields = fields[1:]
-      con = psycopg2.connect(host='localhost', port='54321', database=dbname, user='ping_management_user', password='ping_management_password') 
+      con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user', password='test_password') 
       cur = con.cursor()
-      query_string = "select %s from %s" % (fields, dbname)
+      query_string = "select %s from %s" % (fields, table)
       cur.execute(query_string)          
       ver = cur.fetchall()
       data = []
       coloums = fields.split(",")
       for item in ver:
+        row = {}
         for i, col in enumerate(coloums):
-          temp = {}
-          temp[col] = str(item[i])
-          data.append(temp)
+          col = col.strip(' ')
+          row[col] = str(item[i])
+        data.append(row)
 
       response["data"] = data
       response["status"] = 200
@@ -54,7 +55,7 @@ class Databases(Resource):
       con = None
       response = {}
       try:
-          con = psycopg2.connect(host='localhost', port='54321', database='postgres', user='ping_management_user', password='ping_management_password') 
+          con = psycopg2.connect(host='localhost', port='5432', database='postgres', user='test_user', password='test_password')
           cur = con.cursor()
           cur.execute('select datname from pg_database where datistemplate = false')          
           ver = cur.fetchall()
@@ -77,7 +78,7 @@ class DatabasesDetails(Resource):
       con = None
       response = {}
       try:
-        con = psycopg2.connect(host='localhost', port='54321', database=dbname, user='ping_management_user', password='ping_management_password') 
+        con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user', password='test_password')
         cur = con.cursor()
         cur.execute("select column_name, column_default, data_type, character_maximum_length FROM information_schema.columns WHERE table_schema=%s and table_name=%s", ('public', dbname,))          
         ver = cur.fetchall()
@@ -109,7 +110,7 @@ class AppInfo(Resource):
           "application_name": version,
       }
       try:
-        con = psycopg2.connect(host='localhost', port='54321', database='ping_management', user='ping_management_user', password='ping_management_password') 
+        con = psycopg2.connect(host='localhost', port='5432', database='test_db', user='test_user', password='test_password')
         cur = con.cursor()
         cur.execute('select version()')          
         ver = cur.fetchone()
