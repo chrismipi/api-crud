@@ -3,6 +3,8 @@ from utils import Utils
 
 
 class TestUtils(unittest.TestCase):
+    data = None
+
     def setUp(self):
         pass
 

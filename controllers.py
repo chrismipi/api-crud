@@ -60,7 +60,7 @@ class TableData(Resource):
                     fields = fields[1:].strip()
 
                     content = request.get_json()
-                    values = Helpers.get_put_data(fields, content)
+                    values = Helpers.get_put_or_patch_data(fields, content)
 
                     query_string = "update {} set {} where id = {}".format(table, values, int(content["id"]))
 

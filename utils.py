@@ -21,7 +21,7 @@ class Utils(object):
         return switcher.get(value, "string")
 
     @staticmethod
-    def get_put_data(fields_str, json):
+    def get_put_or_patch_data(fields_str, json):
         fields = fields_str.split(",")
         result = ''
         for field in fields:
