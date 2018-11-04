@@ -1,8 +1,8 @@
 import psycopg2
 import json
 from flask import Flask
-from flask_restful import Resource, Api
-from controllers import AppInfo, Databases, DatabasesDetails, TableData
+from flask_restful import Api
+from controllers import AppInfo, DatabasesDetails, TableData
 from utils import DbUtils
 
 app = Flask(__name__)
@@ -20,18 +20,16 @@ if __name__ == '__main__':
         con = psycopg2.connect(host='localhost', port='5432', database=db_name, user='test_user', password='test_password')
         cur = con.cursor()
 
-        tables = DbUtils.getDBTables(cur)
+        tables = DbUtils.get_db_tables(cur)
         tables_info = {}
         for table_name in tables:
-            cur.execute("select column_name, column_default, data_type, character_maximum_length from information_schema.columns WHERE table_schema=%s and table_name=%s", ('public', table_name,))          
+            cur.execute("select column_name, column_default, data_type, character_maximum_length from "
+                        "information_schema.columns WHERE table_schema=%s and table_name=%s", ('public', table_name,))
             ver = cur.fetchall()
             fields = []
             for i in ver:
-                temp = {}
-                temp["column_name"] = i[0]
-                temp["column_default"] = i[1]
-                temp["data_type"] = i[2]
-                temp["character_maximum_length"] = i[3]
+                temp = {"column_name": i[0], "column_default": i[1], "data_type": i[2],
+                        "character_maximum_length": i[3]}
                 fields.append(temp)
 
             tables_info[table_name] = fields
