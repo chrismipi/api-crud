@@ -21,9 +21,20 @@ class Utils(object):
         return switcher.get(value, "string")
 
     @staticmethod
-    def get_put_data(fields, json):
+    def get_put_data(fields_str, json):
+        fields = fields_str.split(",")
+        result = ''
+        for field in fields:
+            field = field.strip()
 
-        return ""
+            try:
+                if json[field] and field != 'id':
+                    result += ", {} = '{}'".format(field, json[field])
+            except KeyError:
+                pass
+
+        result = result[2:]
+        return result
 
     @staticmethod
     def get_post_data(fields_str, json):

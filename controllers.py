@@ -56,12 +56,14 @@ class TableData(Resource):
                 if data["table_names"].__contains__(table):
                     fields = ''
                     for field in data["tables_info"][table]:
-                        if field["column_name"] != 'id': fields += ", %s" % field["column_name"]
+                        fields += ", %s" % field["column_name"]
                     fields = fields[1:].strip()
 
                     content = request.get_json()
-                    # values = helpers.getPostData(fields, content)
-                    query_string = "update %s SET column1 = value1, column2 = value2, ... where id=%d" % (table, 1)
+                    values = Helpers.get_put_data(fields, content)
+
+                    query_string = "update {} set {} where id = {}".format(table, values, int(content["id"]))
+
                     print(query_string)
                     con = None
                     try:
@@ -109,7 +111,6 @@ class TableData(Resource):
                         cur.execute(query_string)
                         con.commit()
 
-                        response["message"] = "Good"
                         response["status"] = 200
                     except psycopg2.DatabaseError as e:
                         response["error"] = str(e)
