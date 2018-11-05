@@ -1,6 +1,47 @@
 import unittest
 import json
-from validators import Validator
+from validators import Validator, TypeValidator
+
+
+class TestTypeValidator(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_integer_correct(self):
+        value = 123
+        data_type = "integer"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(True, validator.is_valid())
+
+    def test_string_correct(self):
+        value = "string"
+        data_type = "character varying"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(True, validator.is_valid())
+
+    def test_integer_incorrect(self):
+        value = "12345"
+        data_type = "integer"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(False, validator.is_valid())
+
+    def test_string_incorrect(self):
+        value = 123
+        data_type = "character varying"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(False, validator.is_valid())
 
 
 class TestValidator(unittest.TestCase):
@@ -39,8 +80,9 @@ class TestValidator(unittest.TestCase):
 
         self.assertEqual(1, len(validator.get_errors()), "Errors list is supposed to have length of zero")
         error = validator.get_errors()
-        self.assertEqual("id", error["field"], "Errors list is supposed to have length of zero")
-        self.assertEqual("wrong type", error["field"], "Errors list is supposed to have length of zero")
+        self.assertEqual("id", error[0]["field"], "Errors list is supposed to have length of zero")
+        self.assertEqual("value is of the wrong type, required type integer", error[0]["message"],
+                         "Errors list is supposed to have length of zero")
 
 
 if __name__ == '__main__':
