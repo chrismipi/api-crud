@@ -1,0 +1,781 @@
+{
+  "database_name": "test_db",
+  "table_names": [
+    "migrations",
+    "password_resets",
+    "event_types",
+    "users",
+    "model_has_permissions",
+    "model_has_roles",
+    "permissions",
+    "roles",
+    "role_has_permissions",
+    "clients",
+    "jobs",
+    "security_companies",
+    "nfc_tags",
+    "devices",
+    "shifts",
+    "sites",
+    "alerts",
+    "ping_management"
+  ],
+  "tables_info": {
+    "migrations": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('migrations_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "migration",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "batch",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      }
+    ],
+    "password_resets": [
+      {
+        "column_name": "email",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "token",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "event_types": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('event_types_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "description",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "users": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('users_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "first_name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "last_name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "email",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "contact_number",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "password",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "remember_token",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 100
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "model_has_permissions": [
+      {
+        "column_name": "permission_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "model_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "model_type",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      }
+    ],
+    "model_has_roles": [
+      {
+        "column_name": "role_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "model_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "model_type",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      }
+    ],
+    "permissions": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('permissions_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "guard_name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "roles": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('roles_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "guard_name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "role_has_permissions": [
+      {
+        "column_name": "permission_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "role_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      }
+    ],
+    "clients": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('clients_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "address",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "manager_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "manager_type",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "jobs": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('jobs_id_seq'::regclass)",
+        "data_type": "bigint",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "queue",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "payload",
+        "column_default": null,
+        "data_type": "text",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "attempts",
+        "column_default": null,
+        "data_type": "smallint",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "reserved_at",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "available_at",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      }
+    ],
+    "security_companies": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('security_companies_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "manager_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "manager_type",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "nfc_tags": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('nfc_tags_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "serial_no",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "latitude",
+        "column_default": null,
+        "data_type": "double precision",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "longitude",
+        "column_default": null,
+        "data_type": "double precision",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "sequence_no",
+        "column_default": null,
+        "data_type": "smallint",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "site_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "devices": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('devices_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "serial_no",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "device_token",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "contact_number",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "site_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "shifts": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('shifts_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "start_time",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "end_time",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "patrol_count",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "rest_time",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "trip_duration",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "site_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "sites": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('sites_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "name",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "description",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "address",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "latitude",
+        "column_default": null,
+        "data_type": "double precision",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "longitude",
+        "column_default": null,
+        "data_type": "double precision",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "security_company_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "client_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "alerts": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('alerts_id_seq'::regclass)",
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "title",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "detail",
+        "column_default": null,
+        "data_type": "text",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "event_type",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "context",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "ack",
+        "column_default": null,
+        "data_type": "boolean",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "priority",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "user",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "site_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "device_id",
+        "column_default": null,
+        "data_type": "integer",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "created_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "updated_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "deleted_at",
+        "column_default": null,
+        "data_type": "timestamp without time zone",
+        "character_maximum_length": null
+      }
+    ],
+    "ping_management": [
+      {
+        "column_name": "id",
+        "column_default": "nextval('ping_management_id_seq'::regclass)",
+        "data_type": "bigint",
+        "character_maximum_length": null
+      },
+      {
+        "column_name": "device_token",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "uuid",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "ping_status",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "sent_to_web",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "sent_to_phone",
+        "column_default": null,
+        "data_type": "character varying",
+        "character_maximum_length": 255
+      },
+      {
+        "column_name": "phone_responded",
+        "column_default": null,
+        "data_type": "boolean",
+        "character_maximum_length": null
+      }
+    ]
+  }
+}
