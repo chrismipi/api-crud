@@ -1,3 +1,3 @@
 # api-crud
-===
+
 [license]: /LICENSE
