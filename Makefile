@@ -1,3 +1,3 @@
 
-test:
+tests:
 	python -m unittest discover -v ./tests
