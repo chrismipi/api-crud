@@ -1,11 +1,11 @@
 class TypeValidator(object):
     def __init__(self, data_type, value):
-        self.data_type = data_type
-        self.value = value
-        self.valid = False
+        self.__data_type = data_type
+        self.__value = value
+        self.__valid = False
 
     def is_valid(self):
-        return self.valid
+        return self.__valid
 
     def __get_type(self):
         switcher = {
@@ -15,26 +15,28 @@ class TypeValidator(object):
             "TIMESTAMP WITHOUT TIME ZONE": type("string"),  # string
         }
 
-        return switcher.get(str(self.data_type).upper(), None)
+        return switcher.get(str(self.__data_type).upper(), None)
 
     def validate_type(self):
         actual_type = self.__get_type()
-        value_type = type(self.value)
+        value_type = type(self.__value)
         if value_type == actual_type:
-            self.valid = True
+            self.__valid = True
+
+        return self
 
 
 class Validator(object):
     def __init__(self):
-        self.errors_list = []
-        self.missing = "required"
-        self.wrong_type = "value is of the wrong type"
+        self.__errors_list = []
+        self.__missing = "required"
+        self.__wrong_type = "value is of the wrong type"
 
     def is_valid(self):
-        return self.errors_list.__len__() == 0
+        return self.__errors_list.__len__() == 0
 
     def get_errors(self):
-        return self.errors_list
+        return self.__errors_list
 
     def validate_post_data(self, fields, payload):
         for field in fields:
@@ -45,11 +47,11 @@ class Validator(object):
                 type_validator = TypeValidator(data_type, value)
                 type_validator.validate_type()
                 if not type_validator.is_valid():
-                    temp = {'field': field["column_name"], 'message': "{}, required type {}".format(self.wrong_type,
+                    temp = {'field': field["column_name"], 'message': "{}, required type {}".format(self.__wrong_type,
                                                                                                     data_type)}
-                    self.errors_list.append(temp)
+                    self.__errors_list.append(temp)
             else:
-                temp = {'field': field["column_name"], 'message': self.missing}
-                self.errors_list.append(temp)
+                temp = {'field': field["column_name"], 'message': self.__missing}
+                self.__errors_list.append(temp)
 
         return self
