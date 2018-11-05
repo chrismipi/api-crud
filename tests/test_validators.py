@@ -1,5 +1,6 @@
 import unittest
 import json
+import os
 from validators import Validator, TypeValidator
 
 
@@ -47,7 +48,9 @@ class TestTypeValidator(unittest.TestCase):
 class TestValidator(unittest.TestCase):
 
     def setUp(self):
-        with open('./resources/data.json') as f:
+        path = os.path.join('tests', 'resources', 'data.json')
+        print("Path ", path)
+        with open(path) as f:
             self.data = json.load(f)
 
     def test_validate_post_data_correct_data(self):
