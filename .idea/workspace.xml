@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab6d6e69-3cc7-47f8-ac69-edd6d0fd95c5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/validators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,26 +20,31 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="Makefile" value="1" />
           <entry key="coverage" value="1" />
           <entry key="json" value="3" />
+          <entry key="md" value="1" />
           <entry key="py" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="3" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Markdown" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Python" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="15" />
+          <entry key="md" value="5" />
           <entry key="py" value="2397" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="Markdown" value="5" />
           <entry key="PLAIN_TEXT" value="15" />
           <entry key="Python" value="2397" />
         </counts>
@@ -49,11 +54,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/validators.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="190">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <marker date="1541396593354" expanded="true" signature="28:765" ph="..." />
                 <marker date="1541396593354" expanded="true" signature="245:567" ph="..." />
@@ -61,6 +66,23 @@
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="60">
+                <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Makefile">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -143,6 +165,7 @@
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/tests/test_validators.py" />
         <option value="$PROJECT_DIR$/validators.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -166,87 +189,6 @@
             <path>
               <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
               <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="test_validators.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="test_validators.py" type="8704e2dd:PyFileNode" />
-              <item name="TestTypeValidator" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="test_validators.py" type="8704e2dd:PyFileNode" />
-              <item name="TestValidator" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="validators.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="validators.py" type="8704e2dd:PyFileNode" />
-              <item name="TypeValidator" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="api-crud" type="462c0819:PsiDirectoryNode" />
-              <item name="validators.py" type="8704e2dd:PyFileNode" />
-              <item name="Validator" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6 (api-crud) &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6 (api-crud) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.6" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6 (api-crud) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.6" type="462c0819:PsiDirectoryNode" />
-              <item name="unittest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6 (api-crud) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.6" type="462c0819:PsiDirectoryNode" />
-              <item name="unittest" type="462c0819:PsiDirectoryNode" />
-              <item name="case.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="api-crud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.6 (api-crud) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.6" type="462c0819:PsiDirectoryNode" />
-              <item name="unittest" type="462c0819:PsiDirectoryNode" />
-              <item name="case.py" type="8704e2dd:PyFileNode" />
-              <item name="TestCase" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -414,7 +356,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21168831" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21168831" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
@@ -422,7 +364,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293348" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36597428" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.36597428" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.36696342" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -536,13 +478,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/validators.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="190">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
           <folding>
             <marker date="1541396593354" expanded="true" signature="28:765" ph="..." />
             <marker date="1541396593354" expanded="true" signature="245:567" ph="..." />
             <marker date="1541396593354" expanded="true" signature="790:794" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="60">
+            <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
