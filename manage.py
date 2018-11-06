@@ -33,7 +33,6 @@ def test():
 
 
 if __name__ == '__main__':
-    print("HELLO THERE")
     con = None
     response = {}
     try:
