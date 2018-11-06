@@ -6,6 +6,13 @@ import json
 from app.main.utils import Utils as Helpers
 
 
+class Test(Resource):
+    def get(self):
+        data = {"name": "Chris", "surname": "Mahlasela"}
+
+        return data, 200
+
+
 class TableData(Resource):
     def get(self, table):
         con = None
