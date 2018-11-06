@@ -48,7 +48,7 @@ class TestTypeValidator(unittest.TestCase):
 class TestValidator(unittest.TestCase):
 
     def setUp(self):
-        path = os.path.join('tests', 'resources', 'data.json')
+        path = os.path.join('app', 'tests', 'resources', 'data.json')
         print("Path ", path)
         with open(path) as f:
             self.data = json.load(f)
