@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask import request
 import sys
 import json
-from utils import Utils as Helpers
+from app.main.utils import Utils as Helpers
 
 
 class TableData(Resource):

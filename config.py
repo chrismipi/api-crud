@@ -1,3 +1,3 @@
 SECRET_KEY = 'Sm9obiBTY2hyb20ga2lja3MgYXNz'
-DEBUG = True
+DEBUG = False
 SQLALCHEMY_ECHO = True

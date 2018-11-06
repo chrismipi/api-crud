@@ -1,7 +1,21 @@
-tests: unit_test coverage
+.PHONY: clean system-packages python-packages install tests run all
 
-coverage:
-	coverage run -m unittest discover -s ./tests && coverage report -m
+clean:
+	find . -type f -name '*.pyc' -delete
+	find . -type f -name '*.log' -delete
 
-unit_test:
-	python -m unittest discover -v ./tests
+system-packages:
+	sudo apt install python-pip -y
+
+python-packages:
+	pip install -r requirements.txt
+
+install: system-packages python-packages
+
+tests:
+	python manage.py test
+
+run:
+	python manage.py run
+
+all: clean install tests run

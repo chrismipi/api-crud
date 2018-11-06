@@ -1,7 +1,7 @@
 import unittest
 import json
 import os
-from validators import Validator, TypeValidator
+from app.main.validators import Validator, TypeValidator
 
 
 class TestTypeValidator(unittest.TestCase):
