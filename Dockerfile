@@ -4,4 +4,4 @@ WORKDIR /application
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
-ENTRYPOINT ["python", "api.py"]
+ENTRYPOINT ["python", "manage.py", "run"]

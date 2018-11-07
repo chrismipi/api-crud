@@ -10,7 +10,6 @@ from flask_script import Manager
 from app.main.utils import DbUtils
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
-# app.register_blueprint(blueprint)
 
 app.app_context().push()
 
@@ -19,7 +18,7 @@ manager = Manager(app)
 
 @manager.command
 def run():
-    app.run()
+    app.run(debug=app.config["DEBUG"])
 
 
 @manager.command
@@ -61,7 +60,6 @@ if __name__ == '__main__':
         with open('data.json', 'w') as fp:
             json.dump(response, fp)
 
-        # app.run(debug=app.config["DEBUG"])
         manager.run()
     except psycopg2.DatabaseError as e:
         print(str(e))
