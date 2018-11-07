@@ -1,6 +1,7 @@
 import psycopg2
 from flask_restful import Resource
 from flask import request
+from flask_api import status
 import sys
 import json
 from app.main.utils import Utils as Helpers, Utils
@@ -11,7 +12,7 @@ class Test(Resource):
     def get(self):
         data = {"name": "Chris", "surname": "Mahlasela"}
 
-        return data, 200
+        return data, status.HTTP_200_OK
 
 
 class TableData(Resource):
@@ -45,13 +46,13 @@ class TableData(Resource):
                             row[col] = Utils.correct_type(item[i], data_types[i])
                         data.append(row)
                     response["data"] = data
-                    response["status"] = 200
+                    response["status"] = status.HTTP_200_OK
                 else:
                     response["error"] = "table name '%s' not found" % table
-                    response["status"] = 404
+                    response["status"] = status.HTTP_404_NOT_FOUND
         except psycopg2.DatabaseError as e:
             response["error"] = str(e)
-            response["status"] = 500
+            response["status"] = status.HTTP_500_INTERNAL_SERVER_ERROR
         finally:
             if con:
                 con.close()
@@ -84,16 +85,16 @@ class TableData(Resource):
                         con.commit()
 
                         response["message"] = "Good"
-                        response["status"] = 200
+                        response["status"] = status.HTTP_200_OK
                     except psycopg2.DatabaseError as e:
                         response["error"] = str(e)
-                        response["status"] = 500
+                        response["status"] = status.HTTP_500_INTERNAL_SERVER_ERROR
                     finally:
                         if con:
                             con.close()
         else:
             response["error"] = "Only JSON is supported"
-            response["status"] = 400
+            response["status"] = status.HTTP_400_BAD_REQUEST
 
         return response, response["status"]
 
@@ -127,19 +128,19 @@ class TableData(Resource):
                             cur.execute(query_string)
                             con.commit()
 
-                            response["status"] = 200
+                            response["status"] = status.HTTP_201_CREATED
                         except psycopg2.DatabaseError as e:
                             response["error"] = str(e)
-                            response["status"] = 500
+                            response["status"] = status.HTTP_500_INTERNAL_SERVER_ERROR
                         finally:
                             if con:
                                 con.close()
                     else:
                         response["error"] = validator.get_errors()
-                        response["status"] = 422
+                        response["status"] = status.HTTP_400_BAD_REQUEST
         else:
             response["error"] = "Only JSON is supported"
-            response["status"] = 400
+            response["status"] = status.HTTP_400_BAD_REQUEST
 
         return response, response["status"]
 
@@ -159,10 +160,10 @@ class Databases(Resource):
             for item in ver:
                 databases.append(item[0])
             response["databases"] = databases
-            response["status"] = 200
+            response["status"] = status.HTTP_200_OK
         except psycopg2.DatabaseError as e:
             response["error"] = str(e)
-            response["status"] = 500
+            response["status"] = status.HTTP_500_INTERNAL_SERVER_ERROR
         finally:
             if con:
                 con.close()
@@ -179,10 +180,10 @@ class DatabasesDetails(Resource):
                 data = json.load(f)
                 response["database_name"] = data["database_name"]
                 response["tables"] = data["table_names"]
-                response["status"] = 200
+                response["status"] = status.HTTP_200_OK
         except IOError as e:
             response["error"] = str(e)
-            response["status"] = 400
+            response["status"] = status.HTTP_400_BAD_REQUEST
         finally:
             if con:
                 con.close()
