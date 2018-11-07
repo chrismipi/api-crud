@@ -8,6 +8,33 @@ class TestTypeValidator(unittest.TestCase):
     def setUp(self):
         pass
 
+    def test_boolean_correct(self):
+        value = False
+        data_type = "boolean"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(True, validator.is_valid())
+
+    def test_float_correct(self):
+        value = 123.23
+        data_type = "float"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(True, validator.is_valid())
+
+    def test_float_incorrect(self):
+        value = 123
+        data_type = "float"
+
+        validator = TypeValidator(data_type, value)
+        validator.validate_type()
+
+        self.assertEqual(False, validator.is_valid())
+
     def test_integer_correct(self):
         value = 123
         data_type = "integer"
@@ -49,7 +76,6 @@ class TestValidator(unittest.TestCase):
 
     def setUp(self):
         path = os.path.join('app', 'tests', 'resources', 'data.json')
-        print("Path ", path)
         with open(path) as f:
             self.data = json.load(f)
 

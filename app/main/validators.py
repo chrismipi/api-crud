@@ -9,7 +9,9 @@ class TypeValidator(object):
 
     def __get_type(self):
         switcher = {
+            "BOOLEAN": type(False),  # boolean
             "INTEGER": type(1),  # integer
+            "FLOAT": type(0.2),  # float
             "STRING": type("string"),  # string
             "CHARACTER VARYING": type("string"),  # string
             "TIMESTAMP WITHOUT TIME ZONE": type("string"),  # string
