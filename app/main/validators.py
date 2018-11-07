@@ -44,18 +44,19 @@ class Validator(object):
 
     def validate_post_data(self, fields, payload):
         for field in fields:
-            if field["column_name"] in payload:
-                # print(field["column_default"])
-                data_type = field["data_type"]
-                value = payload[field["column_name"]]
-                type_validator = TypeValidator(data_type, value)
-                type_validator.validate_type()
-                if not type_validator.is_valid():
-                    temp = {'field': field["column_name"], 'message': "{}, required type {}".format(self.__wrong_type,
-                                                                                                    data_type)}
+            if field["column_name"] != "id":
+                if field["column_name"] in payload:
+                    # print(field["column_default"])
+                    data_type = field["data_type"]
+                    value = payload[field["column_name"]]
+                    type_validator = TypeValidator(data_type, value)
+                    type_validator.validate_type()
+                    if not type_validator.is_valid():
+                        temp = {'field': field["column_name"], 'message': "{}, required type {}".format(self.__wrong_type,
+                                                                                                        data_type)}
+                        self.__errors_list.append(temp)
+                else:
+                    temp = {'field': field["column_name"], 'message': self.__missing}
                     self.__errors_list.append(temp)
-            else:
-                temp = {'field': field["column_name"], 'message': self.__missing}
-                self.__errors_list.append(temp)
 
         return self

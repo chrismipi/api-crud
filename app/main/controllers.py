@@ -4,6 +4,7 @@ from flask import request
 import sys
 import json
 from app.main.utils import Utils as Helpers, Utils
+from app.main.validators import Validator
 
 
 class Test(Resource):
@@ -100,33 +101,42 @@ class TableData(Resource):
         dbname = 'test_db'
         response = {}
         if request.is_json:
+            content = request.get_json()
+
             with open('data.json') as f:
                 data = json.load(f)
                 if data["table_names"].__contains__(table):
-                    fields = ''
-                    for field in data["tables_info"][table]:
-                        if field["column_name"] != 'id':
-                            fields += ", %s" % field["column_name"]
-                    fields = fields[1:].strip()
+                    fields = data["tables_info"][table]
+                    validator = Validator()
 
-                    content = request.get_json()
-                    values = Helpers.get_post_data(fields, content)
-                    query_string = "insert into %s (%s) values %s" % (table, fields, tuple(values))
-                    con = None
-                    try:
-                        con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user',
-                                               password='test_password')
-                        cur = con.cursor()
-                        cur.execute(query_string)
-                        con.commit()
+                    validator.validate_post_data(fields, content)
+                    if validator.is_valid():
+                        fields = ''
+                        for field in data["tables_info"][table]:
+                            if field["column_name"] != 'id':
+                                fields += ", %s" % field["column_name"]
+                        fields = fields[1:].strip()
 
-                        response["status"] = 200
-                    except psycopg2.DatabaseError as e:
-                        response["error"] = str(e)
-                        response["status"] = 500
-                    finally:
-                        if con:
-                            con.close()
+                        values = Helpers.get_post_data(fields, content)
+                        query_string = "insert into %s (%s) values %s" % (table, fields, tuple(values))
+                        con = None
+                        try:
+                            con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user',
+                                                   password='test_password')
+                            cur = con.cursor()
+                            cur.execute(query_string)
+                            con.commit()
+
+                            response["status"] = 200
+                        except psycopg2.DatabaseError as e:
+                            response["error"] = str(e)
+                            response["status"] = 500
+                        finally:
+                            if con:
+                                con.close()
+                    else:
+                        response["error"] = validator.get_errors()
+                        response["status"] = 422
         else:
             response["error"] = "Only JSON is supported"
             response["status"] = 400
