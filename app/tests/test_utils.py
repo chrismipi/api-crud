@@ -8,6 +8,13 @@ class TestUtils(unittest.TestCase):
     def setUp(self):
         pass
 
+    def test_type_corrector(self):
+        data_type = "INTEGER"
+        value = "345678"
+        result = Utils.correct_type(value, data_type)
+
+        self.assertEqual(345678, result, "Type is supposed to be an integer")
+
     def test_get_type_string(self):
         result = Utils.get_type("String")
         self.assertEqual("string", result)

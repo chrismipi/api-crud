@@ -12,6 +12,17 @@ class DbUtils(object):
 
 class Utils(object):
     @staticmethod
+    def correct_type(value, data_type, precision = None):
+        data_type = data_type.upper()
+        if "INTEGER" == data_type or "SMALLINT" == data_type:
+            value = int(value)
+        elif "STRING" == data_type or "CHARACTER VARYING" == data_type or "TIMESTAMP WITHOUT TIME ZONE" == data_type:
+            value = str(value)
+        elif "DOUBLE PRECISION" == data_type or "FLOAT" == data_type:
+            value = float(value)
+        return value
+
+    @staticmethod
     def get_type(value):
         switcher = {
             "INTEGER": "int",

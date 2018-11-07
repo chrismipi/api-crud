@@ -11,7 +11,9 @@ class TypeValidator(object):
         switcher = {
             "BOOLEAN": type(False),  # boolean
             "INTEGER": type(1),  # integer
+            "SMALLINT": type(1),  # integer
             "FLOAT": type(0.2),  # float
+            "DOUBLE PRECISION": type(0.2),  # float
             "STRING": type("string"),  # string
             "CHARACTER VARYING": type("string"),  # string
             "TIMESTAMP WITHOUT TIME ZONE": type("string"),  # string

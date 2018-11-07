@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask import request
 import sys
 import json
-from app.main.utils import Utils as Helpers
+from app.main.utils import Utils as Helpers, Utils
 
 
 class Test(Resource):
@@ -22,10 +22,12 @@ class TableData(Resource):
             fields = ''
             with open('data.json') as f:
                 data = json.load(f)
-
+                data_types = []
                 if data["table_names"].__contains__(table):
                     for field in data["tables_info"][table]:
                         fields += ", %s" % field["column_name"]
+                        data_types.append(field["data_type"])
+
                     fields = fields[1:]
                     con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user',
                                            password='test_password')
@@ -39,7 +41,7 @@ class TableData(Resource):
                         row = {}
                         for i, col in enumerate(columns):
                             col = col.strip(' ')
-                            row[col] = str(item[i])
+                            row[col] = Utils.correct_type(item[i], data_types[i])
                         data.append(row)
                     response["data"] = data
                     response["status"] = 200
