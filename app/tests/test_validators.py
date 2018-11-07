@@ -81,7 +81,6 @@ class TestValidator(unittest.TestCase):
 
     def test_validate_post_data_correct_data(self):
         payload = {
-            "id": 2,
             "name": "Security Company Owner",
             "guard_name": "web",
             "created_at": "2018-10-06 10:38:08",
@@ -96,9 +95,8 @@ class TestValidator(unittest.TestCase):
 
     def test_validate_post_data_correct_data_type_wrong(self):
         payload = {
-            "id": "3",
             "name": "Security Company Owner",
-            "guard_name": "web",
+            "guard_name": 123,
             "created_at": "2018-10-06 10:38:08",
             "updated_at": "2018-10-06 10:38:08"
         }
@@ -109,8 +107,8 @@ class TestValidator(unittest.TestCase):
 
         self.assertEqual(1, len(validator.get_errors()), "Errors list is supposed to have length of zero")
         error = validator.get_errors()
-        self.assertEqual("id", error[0]["field"], "Errors list is supposed to have length of zero")
-        self.assertEqual("value is of the wrong type, required type integer", error[0]["message"],
+        self.assertEqual("guard_name", error[0]["field"], "Errors list is supposed to have length of zero")
+        self.assertEqual("value is of the wrong type, required type character varying", error[0]["message"],
                          "Errors list is supposed to have length of zero")
 
 
