@@ -4,6 +4,8 @@ from flask import request
 from flask_api import status
 import sys
 import json
+
+from app.main.global_variables import DbDetails
 from app.main.utils import Utils as Helpers, Utils
 from app.main.validators import Validator
 
@@ -19,7 +21,6 @@ class TableData(Resource):
     def get(self, table):
         con = None
         response = {}
-        dbname = 'test_db'
         try:
             fields = ''
             with open('data.json') as f:
@@ -31,8 +32,9 @@ class TableData(Resource):
                         data_types.append(field["data_type"])
 
                     fields = fields[1:]
-                    con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user',
-                                           password='test_password')
+                    db_detail = DbDetails()
+                    con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                                           user=db_detail.username, password=db_detail.password)
                     cur = con.cursor()
                     query_string = "select %s from %s" % (fields, table)
                     cur.execute(query_string)
@@ -59,7 +61,6 @@ class TableData(Resource):
         return response, response["status"]
 
     def put(self, table):
-        dbname = 'test_db'
         response = {}
         if request.is_json:
             with open('data.json') as f:
@@ -75,11 +76,11 @@ class TableData(Resource):
 
                     query_string = "update {} set {} where id = {}".format(table, values, int(content["id"]))
 
-                    print(query_string)
                     con = None
                     try:
-                        con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user',
-                                               password='test_password')
+                        db_detail = DbDetails()
+                        con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                                               user=db_detail.username, password=db_detail.password)
                         cur = con.cursor()
                         cur.execute(query_string)
                         con.commit()
@@ -99,7 +100,6 @@ class TableData(Resource):
         return response, response["status"]
 
     def post(self, table):
-        dbname = 'test_db'
         response = {}
         if request.is_json:
             content = request.get_json()
@@ -122,8 +122,9 @@ class TableData(Resource):
                         query_string = "insert into %s (%s) values %s" % (table, fields, tuple(values))
                         con = None
                         try:
-                            con = psycopg2.connect(host='localhost', port='5432', database=dbname, user='test_user',
-                                                   password='test_password')
+                            db_detail = DbDetails()
+                            con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                                                   user=db_detail.username, password=db_detail.password)
                             cur = con.cursor()
                             cur.execute(query_string)
                             con.commit()
@@ -150,8 +151,9 @@ class Databases(Resource):
         con = None
         response = {}
         try:
-            con = psycopg2.connect(host='localhost', port='5432', database='test_db', user='test_user',
-                                   password='test_password')
+            db_detail = DbDetails()
+            con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                                   user=db_detail.username, password=db_detail.password)
             cur = con.cursor()
             cur.execute('select datname from pg_database where datistemplate = false')
             ver = cur.fetchall()
@@ -199,8 +201,9 @@ class AppInfo(Resource):
             "application_name": version,
         }
         try:
-            con = psycopg2.connect(host='localhost', port='5432', database='test_db', user='test_user',
-                                   password='test_password')
+            db_detail = DbDetails()
+            con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                                   user=db_detail.username, password=db_detail.password)
             cur = con.cursor()
             cur.execute('select version()')
             ver = cur.fetchone()
