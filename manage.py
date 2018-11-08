@@ -3,14 +3,20 @@ import psycopg2
 import json
 import os
 import unittest
+from dotenv import load_dotenv
 
 from app.main import create_app
 from flask_script import Manager
 
 from app.main.utils import DbUtils
+from app.main.global_variables import DbDetails
 
-app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
+# load .env file
+app_root = os.path.join(os.path.dirname(__file__), '.')
+dot_env_path = os.path.join(app_root, '.env')
+load_dotenv(dot_env_path)
 
+app = create_app(os.getenv('APP_ENV') or 'dev')
 app.app_context().push()
 
 manager = Manager(app)
@@ -35,9 +41,9 @@ if __name__ == '__main__':
     con = None
     response = {}
     try:
-        db_name = 'test_db'
-        con = psycopg2.connect(host='localhost', port='5432', database=db_name, user='test_user',
-                               password='test_password')
+        db_detail = DbDetails()
+        con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                               user=db_detail.username, password=db_detail.password)
         cur = con.cursor()
 
         tables = DbUtils.get_db_tables(cur)
@@ -54,7 +60,7 @@ if __name__ == '__main__':
 
             tables_info[table_name] = fields
 
-        response["database_name"] = db_name
+        response["database_name"] = db_detail.name
         response["table_names"] = tables
         response['tables_info'] = tables_info
         with open('data.json', 'w') as fp:
