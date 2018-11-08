@@ -1,6 +1,11 @@
 import os
 
 
+class Files(object):
+    def __init__(self):
+        self.db_file = os.getenv('DB_FILE_PATH') or 'data.json'
+
+
 class DbDetails(object):
     def __init__(self):
         self.host = os.getenv('DB_HOST')

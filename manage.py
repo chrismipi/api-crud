@@ -9,7 +9,7 @@ from app.main import create_app
 from flask_script import Manager
 
 from app.main.utils import DbUtils
-from app.main.global_variables import DbDetails
+from app.main.global_variables import DbDetails, Files
 
 # load .env file
 app_root = os.path.join(os.path.dirname(__file__), '.')
@@ -63,7 +63,9 @@ if __name__ == '__main__':
         response["database_name"] = db_detail.name
         response["table_names"] = tables
         response['tables_info'] = tables_info
-        with open('data.json', 'w') as fp:
+
+        files = Files()
+        with open(files.db_file, 'w') as fp:
             json.dump(response, fp)
 
         manager.run()

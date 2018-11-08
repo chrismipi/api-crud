@@ -7,3 +7,19 @@
 
 [license]: /LICENSE
 ## About API-CRUD
+
+#### Example .env file needed by the Application 
+```env
+# environment
+APP_ENV=dev
+
+# db details
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=test_db
+DB_USERNAME=test_user
+DB_PASSWORD=test_password
+
+# file used for storing db configs and details
+DB_FILE_PATH=db_detail.json
+```

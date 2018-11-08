@@ -5,7 +5,7 @@ from flask_api import status
 import sys
 import json
 
-from app.main.global_variables import DbDetails
+from app.main.global_variables import DbDetails, Files
 from app.main.utils import Utils as Helpers, Utils
 from app.main.validators import Validator
 
@@ -23,7 +23,8 @@ class TableData(Resource):
         response = {}
         try:
             fields = ''
-            with open('data.json') as f:
+            files = Files()
+            with open(files.db_file) as f:
                 data = json.load(f)
                 data_types = []
                 if data["table_names"].__contains__(table):
@@ -63,7 +64,8 @@ class TableData(Resource):
     def put(self, table):
         response = {}
         if request.is_json:
-            with open('data.json') as f:
+            files = Files()
+            with open(files.db_file) as f:
                 data = json.load(f)
                 if data["table_names"].__contains__(table):
                     fields = ''
@@ -104,7 +106,8 @@ class TableData(Resource):
         if request.is_json:
             content = request.get_json()
 
-            with open('data.json') as f:
+            files = Files()
+            with open(files.db_file) as f:
                 data = json.load(f)
                 if data["table_names"].__contains__(table):
                     fields = data["tables_info"][table]
@@ -178,7 +181,8 @@ class DatabasesDetails(Resource):
         con = None
         response = {}
         try:
-            with open('data.json') as f:
+            files = Files()
+            with open(files.db_file) as f:
                 data = json.load(f)
                 response["database_name"] = data["database_name"]
                 response["tables"] = data["table_names"]
