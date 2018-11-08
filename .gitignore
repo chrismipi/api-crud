@@ -105,4 +105,4 @@ venv.bak/
 application.cfg
 .idea
 .DS_Store
-./data.json
+./data.json.env
