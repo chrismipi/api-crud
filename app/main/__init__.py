@@ -4,6 +4,11 @@ from flask_api import FlaskAPI
 from app.main.controllers import AppInfo, TableData, DatabasesDetails, Test
 from .config import config_by_name
 
+from logging.config import dictConfig
+import logging.config
+import yaml
+logging.config.dictConfig(yaml.load(open('logging.conf')))
+
 
 def create_app(config_name):
     app = FlaskAPI(__name__)

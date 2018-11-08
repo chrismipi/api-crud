@@ -107,3 +107,4 @@ application.cfg
 .DS_Store
 ./data.json
 db_detail.json
+*.log
