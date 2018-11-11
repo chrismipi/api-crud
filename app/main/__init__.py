@@ -18,7 +18,7 @@ def create_app(config_name):
 
     api.add_resource(Test, '/test')
     api.add_resource(AppInfo, '/')
-    api.add_resource(DatabasesDetails, '/database')
-    api.add_resource(TableData, '/database/<table>/data')
+    api.add_resource(DatabasesDetails, '/info')
+    api.add_resource(TableData, '/table/<table>/data')
 
     return app
