@@ -15,6 +15,7 @@ class TypeValidator(object):
             "FLOAT": type(0.2),  # float
             "DOUBLE PRECISION": type(0.2),  # float
             "STRING": type("string"),  # string
+            "TEXT": type("string"),  # string
             "CHARACTER VARYING": type("string"),  # string
             "TIMESTAMP WITHOUT TIME ZONE": type("string"),  # string
         }

@@ -5,3 +5,19 @@ services:
     build: .
     ports:
       - 5000:5000
+
+  postgres:
+    build: ./db/psql
+    environment:
+      POSTGRES_PASSWORD: ping_management_password
+      POSTGRES_USER: ping_management_user
+      POSTGRES_DB: ping_management
+    ports:
+    - 5432:5432
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+    - 3306:3306
