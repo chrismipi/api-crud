@@ -49,6 +49,7 @@ class TableData(Resource):
                             row[col] = Utils.correct_type(item[i], data_types[i])
                         data.append(row)
                     response["data"] = data
+                    response["total_records"] = len(data)
                     response["status"] = status.HTTP_200_OK
                 else:
                     response["error"] = "table name '%s' not found" % table
@@ -61,7 +62,7 @@ class TableData(Resource):
                 con.close()
         return response, response["status"]
 
-    def put(self, table):
+    def patch(self, table):
         response = {}
         if request.is_json:
             files = Files()

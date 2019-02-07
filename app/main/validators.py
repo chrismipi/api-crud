@@ -72,6 +72,12 @@ class Validators(object):
     def get_errors(self):
         return self.__errors_list
 
+    def validate_patch_data(self, fields, payload):
+        pass
+
+    def validate_put_data(self, fields, payload):
+        pass
+
     def validate_post_data(self, fields, payload):
         for field in fields:
             if field["column_name"] != "id":
