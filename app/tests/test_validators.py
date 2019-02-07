@@ -11,16 +11,31 @@ class TestLengthValidator(unittest.TestCase):
     def setUp(self):
         pass
 
-    def randomword(self, length):
+    @staticmethod
+    def __random_word(length):
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(length))
 
-    def test_255_length(self):
-        value = self.randomword(255)
+    def test_255_length_incorrect(self):
+        value = TestLengthValidator.__random_word(255)
         length = 254
 
         validator = LengthValidator(length, value)
         self.assertEqual(False, validator.validate().is_valid())
+
+    def test_255_length_correct(self):
+        value = TestLengthValidator.__random_word(255)
+        length = 255
+
+        validator = LengthValidator(length, value)
+        self.assertEqual(True, validator.validate().is_valid())
+
+    def test_255_length__less_correct(self):
+        value = TestLengthValidator.__random_word(30)
+        length = 255
+
+        validator = LengthValidator(length, value)
+        self.assertEqual(True, validator.validate().is_valid())
 
 
 class TestTypeValidator(unittest.TestCase):
