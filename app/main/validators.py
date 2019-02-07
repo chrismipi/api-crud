@@ -39,6 +39,7 @@ class TypeValidator(BaseValidator):
         switcher = {
             "BOOLEAN": type(False),  # boolean
             "INTEGER": type(1),  # integer
+            "BIGINT": type(1),  # integer
             "SMALLINT": type(1),  # integer
             "FLOAT": type(0.2),  # float
             "DOUBLE PRECISION": type(0.2),  # float
@@ -72,39 +73,40 @@ class Validators(object):
     def get_errors(self):
         return self.__errors_list
 
-    def validate_patch_data(self, fields, payload):
-        pass
+    def __post_and_put(self, field, payload):
+        if field["column_name"] in payload:
+            # print(field["column_default"])
+            data_type = field["data_type"]
+            column_name = field["column_name"]
+            value = payload[field["column_name"]]
+            type_validator = TypeValidator(data_type, value)
+            type_validator.validate()
+            if not type_validator.is_valid():
+                temp = {'field': column_name,
+                        'message': "{}, required type {}".format(self.__wrong_type, data_type)}
+                self.__errors_list.append(temp)
+
+            data_length = field["character_maximum_length"]
+            length_validator = LengthValidator(data_length, value)
+            length_validator.validate()
+
+            if not length_validator.is_valid():
+                temp = {'field': column_name,
+                        'message': "{}, required length {}".format(self.__wrong_length, data_length)}
+                self.__errors_list.append(temp)
+        else:
+            temp = {'field': field["column_name"], 'message': self.__missing}
+            self.__errors_list.append(temp)
 
     def validate_put_data(self, fields, payload):
-        pass
+        for field in fields:
+            # validating the field types
+            self.__post_and_put(field, payload)
 
     def validate_post_data(self, fields, payload):
         for field in fields:
             if field["column_name"] != "id":
                 # validating the field types
-                if field["column_name"] in payload:
-                    # print(field["column_default"])
-                    data_type = field["data_type"]
-                    column_name = field["column_name"]
-                    value = payload[field["column_name"]]
-                    type_validator = TypeValidator(data_type, value)
-                    type_validator.validate()
-                    if not type_validator.is_valid():
-                        temp = {'field': column_name,
-                                'message': "{}, required type {}".format(self.__wrong_type, data_type)}
-                        self.__errors_list.append(temp)
-
-                    data_length = field["character_maximum_length"]
-                    length_validator = LengthValidator(data_length, value)
-                    length_validator.validate()
-
-                    if not length_validator.is_valid():
-                        temp = {'field': column_name,
-                                'message': "{}, required length {}".format(self.__wrong_length, data_length)}
-                        self.__errors_list.append(temp)
-
-                else:
-                    temp = {'field': field["column_name"], 'message': self.__missing}
-                    self.__errors_list.append(temp)
+                self.__post_and_put(field, payload)
 
         return self

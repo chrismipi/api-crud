@@ -149,6 +149,54 @@ class TableData(Resource):
 
         return response, response["status"]
 
+    def put(self, table):
+        response = {}
+        if request.is_json:
+            files = Files()
+            content = request.get_json()
+            with open(files.db_file) as f:
+                data = json.load(f)
+                if data["table_names"].__contains__(table):
+                    fields = data["tables_info"][table]
+                    validator = Validators()
+
+                    validator.validate_put_data(fields, content)
+                    if validator.is_valid():
+                        fields = ''
+                        for field in data["tables_info"][table]:
+                            fields += ", {}".format(field["column_name"])
+                        fields = fields[1:].strip()
+
+                        values = Helpers.get_put_or_patch_data(fields, content)
+
+                        query_string = "update {} set {} where id = {}".format(table, values, int(content["id"]))
+
+                        con = None
+                        try:
+                            db_detail = DbDetails()
+                            con = psycopg2.connect(host=db_detail.host, port=db_detail.port, database=db_detail.name,
+                                                   user=db_detail.username, password=db_detail.password)
+                            cur = con.cursor()
+                            cur.execute(query_string)
+                            con.commit()
+
+                            response["message"] = "Good"
+                            response["status"] = status.HTTP_200_OK
+                        except psycopg2.DatabaseError as e:
+                            response["error"] = str(e)
+                            response["status"] = status.HTTP_500_INTERNAL_SERVER_ERROR
+                        finally:
+                            if con:
+                                con.close()
+                    else:
+                        response["error"] = validator.get_errors()
+                        response["status"] = status.HTTP_400_BAD_REQUEST
+        else:
+            response["error"] = "Only JSON is supported"
+            response["status"] = status.HTTP_400_BAD_REQUEST
+
+        return response, response["status"]
+
 
 class Databases(Resource):
     def get(self):
