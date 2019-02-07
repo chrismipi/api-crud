@@ -16,6 +16,13 @@ class TestLengthValidator(unittest.TestCase):
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(length))
 
+    def test_none_length(self):
+        value = "hi there, there is something"
+        length = None
+
+        validator = LengthValidator(length, value)
+        self.assertEqual(True, validator.validate().is_valid())
+
     def test_255_length_incorrect(self):
         value = TestLengthValidator.__random_word(255)
         length = 254

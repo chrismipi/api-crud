@@ -1,4 +1,3 @@
-
 class BaseValidator(object):
     def __init__(self, value):
         self._value = value
@@ -20,7 +19,11 @@ class LengthValidator(BaseValidator):
         return self._valid
 
     def validate(self):
-        self._valid = len(self._value) <= self.__length
+        value = str(self._value)
+        if isinstance(self.__length, type(1)) or isinstance(self.__length, type(0.1)):
+            self._valid = len(value) <= self.__length
+        else:
+            self._valid = True
         return self
 
 
@@ -61,6 +64,7 @@ class Validators(object):
         self.__errors_list = []
         self.__missing = "required"
         self.__wrong_type = "value is of the wrong type"
+        self.__wrong_length = "value is of the wrong length"
 
     def is_valid(self):
         return self.__errors_list.__len__() == 0
@@ -71,16 +75,28 @@ class Validators(object):
     def validate_post_data(self, fields, payload):
         for field in fields:
             if field["column_name"] != "id":
+                # validating the field types
                 if field["column_name"] in payload:
                     # print(field["column_default"])
                     data_type = field["data_type"]
+                    column_name = field["column_name"]
                     value = payload[field["column_name"]]
                     type_validator = TypeValidator(data_type, value)
                     type_validator.validate()
                     if not type_validator.is_valid():
-                        temp = {'field': field["column_name"], 'message': "{}, required type {}".format(self.__wrong_type,
-                                                                                                        data_type)}
+                        temp = {'field': column_name,
+                                'message': "{}, required type {}".format(self.__wrong_type, data_type)}
                         self.__errors_list.append(temp)
+
+                    data_length = field["character_maximum_length"]
+                    length_validator = LengthValidator(data_length, value)
+                    length_validator.validate()
+
+                    if not length_validator.is_valid():
+                        temp = {'field': column_name,
+                                'message': "{}, required length {}".format(self.__wrong_length, data_length)}
+                        self.__errors_list.append(temp)
+
                 else:
                     temp = {'field': field["column_name"], 'message': self.__missing}
                     self.__errors_list.append(temp)
