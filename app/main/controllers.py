@@ -71,7 +71,7 @@ class TableData(Resource):
                 if data["table_names"].__contains__(table):
                     fields = ''
                     for field in data["tables_info"][table]:
-                        fields += ", %s" % field["column_name"]
+                        fields += ", {}".format(field["column_name"])
                     fields = fields[1:].strip()
 
                     content = request.get_json()
