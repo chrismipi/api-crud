@@ -18,6 +18,10 @@ class Test(Resource):
 
 
 class TableData(Resource):
+    def __init__(self):
+        self.__ok_message = "ok"
+        self.__created_message = "created"
+
     def get(self, table):
         con = None
         response = {}
@@ -49,7 +53,7 @@ class TableData(Resource):
                             row[col] = Utils.correct_type(item[i], data_types[i])
                         data.append(row)
                     response["data"] = data
-                    response["total_records"] = len(data)
+                    response["message"] = self.__ok_message
                     response["status"] = status.HTTP_200_OK
                 else:
                     response["error"] = "table name '%s' not found" % table
@@ -88,7 +92,7 @@ class TableData(Resource):
                         cur.execute(query_string)
                         con.commit()
 
-                        response["message"] = "Good"
+                        response["message"] = self.__ok_message
                         response["status"] = status.HTTP_200_OK
                     except psycopg2.DatabaseError as e:
                         response["error"] = str(e)
@@ -134,6 +138,7 @@ class TableData(Resource):
                             con.commit()
 
                             response["status"] = status.HTTP_201_CREATED
+                            response["message"] = self.__created_message
                         except psycopg2.DatabaseError as e:
                             response["error"] = str(e)
                             response["status"] = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -180,7 +185,7 @@ class TableData(Resource):
                             cur.execute(query_string)
                             con.commit()
 
-                            response["message"] = "Good"
+                            response["message"] = self.__ok_message
                             response["status"] = status.HTTP_200_OK
                         except psycopg2.DatabaseError as e:
                             response["error"] = str(e)
