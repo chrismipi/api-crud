@@ -1,11 +1,36 @@
-class TypeValidator(object):
-    def __init__(self, data_type, value):
-        self.__data_type = data_type
-        self.__value = value
-        self.__valid = False
+
+class Validator(object):
+    def __init__(self, value):
+        self._value = value
+        self._valid = False
 
     def is_valid(self):
-        return self.__valid
+        raise NotImplementedError("Should have implemented this")
+
+    def validate(self):
+        raise NotImplementedError("Should have implemented this")
+
+
+class LengthValidator(Validator):
+    def __init__(self, length, value):
+        super(LengthValidator, self).__init__(value)
+        self.__length = length
+
+    def is_valid(self):
+        return self._valid
+
+    def validate(self):
+        self._valid = len(self._value) <= self.__length
+        return self
+
+
+class TypeValidator(Validator):
+    def __init__(self, data_type, value):
+        super(TypeValidator, self).__init__(value)
+        self.__data_type = data_type
+
+    def is_valid(self):
+        return self._valid
 
     def __get_type(self):
         switcher = {
@@ -22,16 +47,16 @@ class TypeValidator(object):
 
         return switcher.get(str(self.__data_type).upper(), None)
 
-    def validate_type(self):
+    def validate(self):
         actual_type = self.__get_type()
-        value_type = type(self.__value)
+        value_type = type(self._value)
         if value_type == actual_type:
-            self.__valid = True
+            self._valid = True
 
         return self
 
 
-class Validator(object):
+class Validators(object):
     def __init__(self):
         self.__errors_list = []
         self.__missing = "required"
@@ -47,11 +72,11 @@ class Validator(object):
         for field in fields:
             if field["column_name"] != "id":
                 if field["column_name"] in payload:
-                    # print(field["column_default"])
+                    print(field["column_default"])
                     data_type = field["data_type"]
                     value = payload[field["column_name"]]
                     type_validator = TypeValidator(data_type, value)
-                    type_validator.validate_type()
+                    type_validator.validate()
                     if not type_validator.is_valid():
                         temp = {'field': field["column_name"], 'message': "{}, required type {}".format(self.__wrong_type,
                                                                                                         data_type)}

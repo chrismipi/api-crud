@@ -1,7 +1,26 @@
-import unittest
 import json
 import os
-from app.main.validators import Validator, TypeValidator
+import random
+import string
+import unittest
+
+from app.main.validators import Validators, TypeValidator, LengthValidator
+
+
+class TestLengthValidator(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def randomword(self, length):
+        letters = string.ascii_lowercase
+        return ''.join(random.choice(letters) for i in range(length))
+
+    def test_255_length(self):
+        value = self.randomword(255)
+        length = 254
+
+        validator = LengthValidator(length, value)
+        self.assertEqual(False, validator.validate().is_valid())
 
 
 class TestTypeValidator(unittest.TestCase):
@@ -13,7 +32,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "boolean"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(True, validator.is_valid())
 
@@ -22,7 +41,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "float"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(True, validator.is_valid())
 
@@ -31,7 +50,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "float"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(False, validator.is_valid())
 
@@ -40,7 +59,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "integer"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(True, validator.is_valid())
 
@@ -49,7 +68,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "character varying"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(True, validator.is_valid())
 
@@ -58,7 +77,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "integer"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(False, validator.is_valid())
 
@@ -67,7 +86,7 @@ class TestTypeValidator(unittest.TestCase):
         data_type = "character varying"
 
         validator = TypeValidator(data_type, value)
-        validator.validate_type()
+        validator.validate()
 
         self.assertEqual(False, validator.is_valid())
 
@@ -87,7 +106,7 @@ class TestValidator(unittest.TestCase):
             "updated_at": "2018-10-06 10:38:08"
         }
         fields = self.data["tables_info"]["roles"]
-        validator = Validator()
+        validator = Validators()
 
         validator.validate_post_data(fields, payload)
 
@@ -101,7 +120,7 @@ class TestValidator(unittest.TestCase):
             "updated_at": "2018-10-06 10:38:08"
         }
         fields = self.data["tables_info"]["roles"]
-        validator = Validator()
+        validator = Validators()
 
         validator.validate_post_data(fields, payload)
 

@@ -7,7 +7,7 @@ import json
 
 from app.main.global_variables import DbDetails, Files
 from app.main.utils import Utils as Helpers, Utils
-from app.main.validators import Validator
+from app.main.validators import Validators
 
 
 class Test(Resource):
@@ -111,7 +111,7 @@ class TableData(Resource):
                 data = json.load(f)
                 if data["table_names"].__contains__(table):
                     fields = data["tables_info"][table]
-                    validator = Validator()
+                    validator = Validators()
 
                     validator.validate_post_data(fields, content)
                     if validator.is_valid():
