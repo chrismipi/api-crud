@@ -1,5 +1,5 @@
 
-class Validator(object):
+class BaseValidator(object):
     def __init__(self, value):
         self._value = value
         self._valid = False
@@ -11,7 +11,7 @@ class Validator(object):
         raise NotImplementedError("Should have implemented this")
 
 
-class LengthValidator(Validator):
+class LengthValidator(BaseValidator):
     def __init__(self, length, value):
         super(LengthValidator, self).__init__(value)
         self.__length = length
@@ -24,7 +24,7 @@ class LengthValidator(Validator):
         return self
 
 
-class TypeValidator(Validator):
+class TypeValidator(BaseValidator):
     def __init__(self, data_type, value):
         super(TypeValidator, self).__init__(value)
         self.__data_type = data_type
@@ -72,7 +72,7 @@ class Validators(object):
         for field in fields:
             if field["column_name"] != "id":
                 if field["column_name"] in payload:
-                    print(field["column_default"])
+                    # print(field["column_default"])
                     data_type = field["data_type"]
                     value = payload[field["column_name"]]
                     type_validator = TypeValidator(data_type, value)
